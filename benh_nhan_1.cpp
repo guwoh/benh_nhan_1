@@ -53,6 +53,11 @@ int reset()    // reset dem ve 0
     dem=0;
     return dem;
 }
+// Hàm để xóa bộ đệm đầu vào
+void clear() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
 // dinh nghia cam ham su dung trong code
 // entry funcions:
@@ -61,8 +66,8 @@ void dtYTe(yTe* , int);  // khai báo hàm nhập data thông tin y tế
 void dtLichSuTiemChung(lichSuTiemChung* , int);  // khai báo hàm nhập data lịch sử tiêm chủng
 void dtLichTiemChung(lichTiemChung* , int);  // khai báo hàm nhập data lịch tiêm chủng
 // display funcions:
-void displayCaNhan();
-void displayYTe();
+void displayCaNhan(caNhan*,int);
+void displayYTe(yte*);
 void displayLinhSuTiemChung();
 void displayLichTiemChung();
 // if_patient funcion: this funcion use in main code (if_patient,if_staff)
@@ -70,13 +75,77 @@ void if_bn();
 
 int main()
 {
-    int numOfPa;
+    int numOfBn;
+    caNhan* infor_cn;
+    yTe* infor_yt;
+    lichSuTiemChung* infor_lstc;
+    lichTiemChung* infor_ltc;
     printf("Nhap so luong benh nhan:");
-    scanf("%d",&numOfPa);
+    scanf("%d",&numOfBn);    
+    infor_cn =(caNhan*)malloc(numOfBn*sizeof(caNhan)); // cấp phát động thông tin cá nhân
+    
+    dtCaNhan(infor_cn,numOfBn);  // entry data of patient
+    displayCaNhan(infor_cn,numOfBn);  // dis play data of patent 
 
+
+    free(infor);
+    return 0;
 }
 
-hihi
-ihii
-hjaha
-test 4
+// entry and display data of struct caNhan
+void dtCaNhan(caNhan* infor, int numOfBn)
+{
+    for(int i=0; i < numOfBn; i++)
+    {
+        printf("_____________________________________________\n_____________________________________________\n");
+        printf("Nhap thong tin cho benh nhan thu %d \n",i+1);
+        printf("ID ca nhan: ");
+        scanf("%d", &infor[i].ID);
+        clear(); // clear bo nho dem
+        printf("Ten benh nhan: ");
+        fgets(infor[i].name,99,stdin);
+        printf("Ngay thang nam sinh (dd/mm/yyyy): ");
+        scanf("%d/%d/%d",&infor[i].day,&infor[i].month,&infor[i].year);
+        clear();
+        printf("Gioi tinh: ");
+        fgets(infor[i].sex,99,stdin);
+        printf("Dia chi thuong chu: ");
+        fgets(infor[i].address,99,stdin);
+        printf("So dien thoai ca nhan: ");
+        fgets(infor[i].numPhone,99,stdin);
+    }
+}
+void displayCaNhan(caNhan*infor, int numOfBn)
+{
+    for(int i=0; i < numOfBn; i++)
+    {
+        printf("_____________________________________________\n_____________________________________________\n");
+        printf("Check thong tin benh nhan!\n");
+        printf("Thong tin cho benh nhan thu %d \n",i+1);
+        printf("ID ca nhan: %d\n",infor[i].ID);
+        printf("Ten benh nhan: %s",infor[i].name);
+        printf("Ngay thang nam sinh (dd/mm/yyyy): %d/%d/%d\n",infor[i].day,infor[i].month,infor[i].year);
+        printf("Gioi tinh: %s",infor[i].sex);
+        printf("Dia chi thuong chu: %s",infor[i].address);
+        printf("So dien thoai ca nhan: %s",infor[i].numPhone);
+    }
+}
+
+// entry and display data of struct yTe
+void dtYTe(yTe*infor)
+{
+    printf("Nhap thong tin lien quan de y te:\n");
+    clear();
+    printf("Tien su benh ly:");
+    fgets(infor[i].tien)
+}
+
+// entry and display data of struct lichSuTiemChung
+
+// entry and display data of struct lichTiemChugn
+
+
+
+
+
+
