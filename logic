@@ -7,4 +7,8 @@
 
 2. hoàn thiện các bước cơ bản thì sẽ trau truốt thêm code để cải thiện
 - phần hiển thị
-- phần kiểm tra điều kiện đầu vào
+- phần kiểm tra điều kiện đầu vào:
+    dd/mm/yyyy
+    ID moi nguoi phai khac nhau, maybe gan cho thang dem
+    thay ID bang tai khoan, mat khau dang nhap
+    

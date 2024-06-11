@@ -14,6 +14,8 @@
 
 typedef struct // Hồ sơ cá nhân:
 {
+    char tk[100];
+    char mk[100];
     int ID;
     char name[100]; // Họ và tên
     int day,month,year; // Ngày tháng năm sinh
@@ -25,8 +27,7 @@ typedef struct // Hồ sơ cá nhân:
 typedef struct  // Thông tin y tế:
 {
     char tienBenhLy[100]; // Tiền sử bệnh lý
-    char tienTiemChung[100]; // Tiền sử tiêm chủng (các loại vắc xin đã tiêm)
-    int gan;
+    int tienTiemChung; // Tiền sử tiêm chủng (các loại vắc xin đã tiêm)
 }yTe;
 
 typedef struct   // Lịch sử tiêm chủng:
@@ -95,6 +96,15 @@ int main()
     displayCaNhan(infor_cn,numOfBn);  // dis play data of patent 
     dtYTe(infor_yt,numOfBn);
     displayYTe(infor_yt,numOfBn);
+    for(int i=0; i<numOfBn; i++)
+    {
+        if(infor_yt[i].tienTiemChung==1)
+        {
+            printf("\nThong tin lich su tiem chung cua benh nhan %d :",i+1);
+            // dtLichSuTiemChung(infor_lstc,numOfBn);
+        }
+        else    printf("Benh nhan %d khong co lich su tiem chung !",i+1);
+    }
 
 
     free(infor_cn);
@@ -110,11 +120,20 @@ void dtCaNhan(caNhan* infor, int numOfBn)
     for(int i=0; i < numOfBn; i++)
     {
         printf("_____________________________________________\n_____________________________________________\n");
-        printf("Nhap thong tin cho benh nhan thu %d \n",i+1);
+        printf("Nhap thong tin cho benh nhan thu %d \n\n*****************\n",i+1);
         
-        printf("ID ca nhan: ");
-        scanf("%d", &infor[i].ID);
-        clear(); // clear bo nho dem
+        // printf("ID ca nhan: ");
+        // scanf("%d", &infor[i].ID);
+        // clear(); // clear bo nho dem
+        infor[i].ID=tangDem();
+        printf("Tai khoan ca nhan:\n");
+        printf("Tai khoan:");
+        clear();
+        fgets(infor[i].tk,99,stdin);
+
+        printf("Mat khau:");
+        fgets(infor[i].mk,99,stdin);
+
         
         printf("Ten benh nhan: ");
         fgets(infor[i].name,99,stdin);
@@ -132,6 +151,8 @@ void dtCaNhan(caNhan* infor, int numOfBn)
         printf("So dien thoai ca nhan: ");
         fgets(infor[i].numPhone,99,stdin);
     }
+    reset();
+    clear();
 }
 void displayCaNhan(caNhan*infor, int numOfBn)
 {
@@ -140,6 +161,8 @@ void displayCaNhan(caNhan*infor, int numOfBn)
         printf("_____________________________________________\n_____________________________________________\n");
         printf(" Check thong tin benh nhan!\n");
         printf(" Thong tin cho benh nhan thu %d \n",i+1);
+        printf(" Tai khoan: %s",infor[i].tk);
+        printf(" Mat khau: %s",infor[i].mk);
         printf(" ID ca nhan: %d\n",infor[i].ID);
         printf(" Ten benh nhan: %s",infor[i].name);
         printf(" Ngay thang nam sinh (dd/mm/yyyy): %d/%d/%d\n",infor[i].day,infor[i].month,infor[i].year);
@@ -155,17 +178,14 @@ void dtYTe(yTe*infor, int numOfBn)
     for(int i=0; i<numOfBn; i++)
     {   
         printf("_____________________________________________\n");
-        printf("Nhap thong tin lien quan de y te:\n");
+        printf("Nhap thong tin lien quan de y te benh nhan %d :\n",i+1);
         
         printf("Tien su benh ly:");
         fgets(infor[i].tienBenhLy,99,stdin);
         
-        printf("Tien su tiem chung yes/no: ");
-        fgets(infor[i].tienTiemChung,99,stdin);
-        if(infor[i].tienTiemChung == "yes")
-        {
-
-        }
+        printf("Tien su tiem chung co(1)/khong(0): ");
+        scanf("%d",&infor[i].tienTiemChung);
+        clear();
     }
 }
 
@@ -175,9 +195,11 @@ void displayYTe(yTe* infor, int numOfBn)
     printf("Check thong tin y te benh nhan!\n");
     for(int i=0; i<numOfBn; i++)
     {   
-        printf("\n Thong tin lien quan den y te %d:\n",i+1);
+        printf("\nThong tin lien quan den y te %d:\n",i+1);
         printf(" Tien su benh ly: %s",infor[i].tienBenhLy);
-        printf(" Tien su tiem chung: %s",infor[i].tienTiemChung);
+
+        if(infor[i].tienTiemChung == 0 )    printf(" Benh nhan khong co tien su su dung vaccine");
+        else    printf(" Benh nhan co tien su su dung vaccine");
     }
 }
 
