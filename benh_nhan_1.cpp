@@ -96,7 +96,7 @@ int main()
     dtCaNhan(infor_cn,numOfBn);  // entry data of patient
     displayCaNhan(infor_cn,numOfBn);  // dis play data of patent 
     dtYTe(infor_yt,numOfBn);
-    for(int i=0; i<numOfBn; i++)
+    for(int i=0; i<numOfBn; i++)  // note: chuyển ra hàm
     {
         if(infor_yt[i].tienTiemChung==1)
         {
