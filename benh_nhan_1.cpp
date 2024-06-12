@@ -121,14 +121,11 @@ void dtCaNhan(caNhan* infor, int numOfBn)
     {
         printf("_____________________________________________\n_____________________________________________\n");
         printf("Nhap thong tin cho benh nhan thu %d \n\n*****************\n",i+1);
-        
-        // printf("ID ca nhan: ");
-        // scanf("%d", &infor[i].ID);
-        // clear(); // clear bo nho dem
-        infor[i].ID=tangDem();
         printf("Tai khoan ca nhan:\n");
-        printf("Tai khoan:");
         clear();
+
+        printf("Tai khoan:");
+        // clear();
         fgets(infor[i].tk,99,stdin);
 
         printf("Mat khau:");
@@ -148,11 +145,12 @@ void dtCaNhan(caNhan* infor, int numOfBn)
         printf("Dia chi thuong chu: ");
         fgets(infor[i].address,99,stdin);
         
+        infor[i].ID=tangDem();
+        
         printf("So dien thoai ca nhan: ");
         fgets(infor[i].numPhone,99,stdin);
+        
     }
-    reset();
-    clear();
 }
 void displayCaNhan(caNhan*infor, int numOfBn)
 {
