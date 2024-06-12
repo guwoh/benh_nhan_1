@@ -32,10 +32,10 @@ typedef struct  // Thông tin y tế:
 
 typedef struct   // Lịch sử tiêm chủng:
 {
-    char VXDT[100]; // Danh sách các loại vắc xin đã tiêm
+    char nameOfVeccine[100]; // Danh sách các loại vắc xin đã tiêm
     int dayT,monthT,yearT; // Ngày tiêm
     char DDT[100]; // Địa điểm tiêm
-}lichSuTiemChung;
+}LichSuTiemChung;
 
 typedef struct   // Lịch tiêm chủng:
 {
@@ -65,14 +65,14 @@ void clear() {
 // entry funcions:
 void dtCaNhan(caNhan* , int);  // khai báo hàm nhập data thông tin cá nhân
 void dtYTe(yTe* , int);  // khai báo hàm nhập data thông tin y tế
-void dtLichSuTiemChung(lichSuTiemChung* , int);  // khai báo hàm nhập data lịch sử tiêm chủng
+void dtLichSuTiemChung(LichSuTiemChung  , int);  // khai báo hàm nhập data lịch sử tiêm chủng
 void dtLichTiemChung(lichTiemChung* , int);  // khai báo hàm nhập data lịch tiêm chủng
 
 // display funcions:
 void displayCaNhan(caNhan*,int);
 void displayYTe(yTe*,int);
-void displayLinhSuTiemChung();
-void displayLichTiemChung();
+void displayLinhSuTiemChung(LichSuTiemChung , int);
+void displayLichTiemChung(lichTiemChung* , int);
 
 // if_patient funcion: this funcion use in main code (if_patient,if_staff)
 void if_bn();
@@ -82,34 +82,65 @@ int main()
     int numOfBn;
     caNhan* infor_cn;
     yTe* infor_yt;
-    lichSuTiemChung* infor_lstc;
+    LichSuTiemChung lichSuTiemChung[100]; //   khai báo 1 mang struct ( khong han )
     lichTiemChung* infor_ltc;
+    int numOfVaccine[1000];   // so luong vaccine cua 1 object
+
     printf("Nhap so luong benh nhan:");
     scanf("%d",&numOfBn);    
 
     infor_cn =(caNhan*)malloc(numOfBn*sizeof(caNhan)); // cấp phát động thông tin cá nhân
     infor_yt =(yTe*)malloc(numOfBn*sizeof(yTe)); // cấp phát động thông tin cá nhân
-    infor_lstc =(lichSuTiemChung*)malloc(numOfBn*sizeof(lichSuTiemChung)); // cấp phát động thông tin cá nhân
     infor_ltc =(lichTiemChung*)malloc(numOfBn*sizeof(lichTiemChung)); // cấp phát động thông tin cá nhân
     
     dtCaNhan(infor_cn,numOfBn);  // entry data of patient
     displayCaNhan(infor_cn,numOfBn);  // dis play data of patent 
     dtYTe(infor_yt,numOfBn);
-    displayYTe(infor_yt,numOfBn);
     for(int i=0; i<numOfBn; i++)
     {
         if(infor_yt[i].tienTiemChung==1)
         {
-            printf("\nThong tin lich su tiem chung cua benh nhan %d :",i+1);
-            // dtLichSuTiemChung(infor_lstc,numOfBn);
+            printf("\nThong tin lich su tiem chung cua benh nhan %d :\n",i+1);
+            printf("So luong vaccine da tiem:");
+            scanf("%d",&numOfVaccine[i]);  // so luong vaccine cua object i+1
+            for(int j=0; j<numOfVaccine[i] ; j++)
+            {
+                clear();
+                printf("\nVaccien thu %d\n",j+1);
+
+                printf("Ten vaccine la: ");
+                // clear();
+                fgets(lichSuTiemChung[j].nameOfVeccine,99,stdin);
+
+                printf("Thoi gian tiem (dd/mm/yyyy): ");
+                scanf("%d/%d/%d",&lichSuTiemChung[j].dayT,&lichSuTiemChung[j].monthT,&lichSuTiemChung[j].yearT);
+                clear();
+
+                printf("Dia diem tiem: ");
+                fgets(lichSuTiemChung[j].DDT,99,stdin);
+            }
+            printf("*************************\n Kiem tra thong tin vaccine\n");
+            for(int j=0; j<numOfVaccine[i] ; j++)
+            {
+                printf("\nVaccien thu %d\n",j+1);
+
+                printf("Ten vaccine la: %s",lichSuTiemChung[j].nameOfVeccine);
+
+                printf("Thoi gian tiem: %d/%d/%d",lichSuTiemChung[j].dayT,lichSuTiemChung[j].monthT,lichSuTiemChung[j].yearT);
+
+                printf("\nDia diem tiem: %s",lichSuTiemChung[j].DDT);
+        
+            }
         }
         else    printf("Benh nhan %d khong co lich su tiem chung !",i+1);
     }
+    displayYTe(infor_yt,numOfBn);
+
+
 
 
     free(infor_cn);
     free(infor_yt);
-    free(infor_lstc);
     free(infor_ltc);
     return 0;
 }
@@ -149,15 +180,14 @@ void dtCaNhan(caNhan* infor, int numOfBn)
         
         printf("So dien thoai ca nhan: ");
         fgets(infor[i].numPhone,99,stdin);
-        
     }
 }
 void displayCaNhan(caNhan*infor, int numOfBn)
 {
+    printf("_____________________________________________\n_____________________________________________\n");
+    printf(" Check thong tin benh nhan!\n");
     for(int i=0; i < numOfBn; i++)
     {
-        printf("_____________________________________________\n_____________________________________________\n");
-        printf(" Check thong tin benh nhan!\n");
         printf(" Thong tin cho benh nhan thu %d \n",i+1);
         printf(" Tai khoan: %s",infor[i].tk);
         printf(" Mat khau: %s",infor[i].mk);
@@ -201,7 +231,17 @@ void displayYTe(yTe* infor, int numOfBn)
     }
 }
 
-// entry and display data of struct lichSuTiemChung
+// entry and display data of struct lichSuTiemChung 
+// maybe its good in main
+// void dtLichSuTiemChung(LichSuTiemChung lichSuTiemChung[100], int numOfBn)
+// {
+    
+// } 
+
+// void displayLinhSuTiemChung(LichSuTiemChung infor, int numOfBn)
+// {
+
+// }
 
 // entry and display data of struct lichTiemChugn
 
