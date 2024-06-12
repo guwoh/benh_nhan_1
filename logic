@@ -1,5 +1,5 @@
 1. nhập thông tin bệnh nhân :
-- thông tin cá nhân done
+- thông tin cá nhân :done
 - thông tin y tế về bệnh lý và tiêm chung
 ( nếu lựa chọn là "không có" thì sẽ có đường dẫn khác đưa ra)
 - như kiểu phần danh sách các loại vaccine đã tiêm, nếu chưa tiêm thì làm sao có?

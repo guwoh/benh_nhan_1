@@ -65,13 +65,13 @@ void clear() {
 // entry funcions:
 void dtCaNhan(caNhan* , int);  // khai báo hàm nhập data thông tin cá nhân
 void dtYTe(yTe* , int);  // khai báo hàm nhập data thông tin y tế
-void dtLichSuTiemChung(LichSuTiemChung  , int);  // khai báo hàm nhập data lịch sử tiêm chủng
+void dtLichSuTiemChung(LichSuTiemChung , yTe* , int);  // khai báo hàm nhập data lịch sử tiêm chủng
 void dtLichTiemChung(lichTiemChung* , int);  // khai báo hàm nhập data lịch tiêm chủng
 
 // display funcions:
 void displayCaNhan(caNhan*,int);
 void displayYTe(yTe*,int);
-void displayLinhSuTiemChung(LichSuTiemChung , int);
+void displayLinhSuTiemChung(LichSuTiemChung ,yTe* , int);
 void displayLichTiemChung(lichTiemChung* , int);
 
 // if_patient funcion: this funcion use in main code (if_patient,if_staff)
@@ -96,46 +96,7 @@ int main()
     dtCaNhan(infor_cn,numOfBn);  // entry data of patient
     displayCaNhan(infor_cn,numOfBn);  // dis play data of patent 
     dtYTe(infor_yt,numOfBn);
-    for(int i=0; i<numOfBn; i++)  // note: chuyển ra hàm
-    {
-        if(infor_yt[i].tienTiemChung==1)
-        {
-            printf("\nThong tin lich su tiem chung cua benh nhan %d :\n",i+1);
-            printf("So luong vaccine da tiem:");
-            scanf("%d",&numOfVaccine[i]);  // so luong vaccine cua object i+1
-            for(int j=0; j<numOfVaccine[i] ; j++)
-            {
-                clear();
-                printf("\nVaccien thu %d\n",j+1);
-
-                printf("Ten vaccine la: ");
-                // clear();
-                fgets(lichSuTiemChung[j].nameOfVeccine,99,stdin);
-
-                printf("Thoi gian tiem (dd/mm/yyyy): ");
-                scanf("%d/%d/%d",&lichSuTiemChung[j].dayT,&lichSuTiemChung[j].monthT,&lichSuTiemChung[j].yearT);
-                clear();
-
-                printf("Dia diem tiem: ");
-                fgets(lichSuTiemChung[j].DDT,99,stdin);
-            }
-            printf("*************************\n Kiem tra thong tin vaccine\n");
-            for(int j=0; j<numOfVaccine[i] ; j++)
-            {
-                printf("\nVaccien thu %d\n",j+1);
-
-                printf("Ten vaccine la: %s",lichSuTiemChung[j].nameOfVeccine);
-
-                printf("Thoi gian tiem: %d/%d/%d",lichSuTiemChung[j].dayT,lichSuTiemChung[j].monthT,lichSuTiemChung[j].yearT);
-
-                printf("\nDia diem tiem: %s",lichSuTiemChung[j].DDT);
-        
-            }
-        }
-        else    printf("Benh nhan %d khong co lich su tiem chung !",i+1);
-    }
     displayYTe(infor_yt,numOfBn);
-
 
 
 
